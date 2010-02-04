@@ -1,0 +1,27 @@
+task hello<<{
+	println "Hello Earth!"
+}
+hello.doFirst {
+	println "Hello from the $hello.name task!!"
+}
+hello.doLast {
+	println "Hello Mars!"
+}
+hello.doLast{
+	println "Hello Jupiter"
+}
+hello << {
+	println "Hello Saturn"
+}
+
+task next(dependsOn: hello)<<{
+	println "I'm Gradle"
+}
+
+4.times { counter ->
+	task "task$counter"<<{
+		println "I'm task $counter"
+	}
+}
+
+task0.dependsOn task2,task3
