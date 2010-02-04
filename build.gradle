@@ -1,27 +1,17 @@
+defaultTasks 'hello', 'mapChecksum'
+
 task hello<<{
-	println "Hello Earth!"
+	println "Hello $hello.greetee!"
 }
-hello.doFirst {
-	println "Hello from the $hello.name task!!"
-}
-hello.doLast {
-	println "Hello Mars!"
-}
-hello.doLast{
-	println "Hello Jupiter"
-}
-hello << {
-	println "Hello Saturn"
-}
+hello.greetee = 'World'
 
-task next(dependsOn: hello)<<{
-	println "I'm Gradle"
-}
-
-4.times { counter ->
-	task "task$counter"<<{
-		println "I'm task $counter"
+task mapChecksum << {
+	fileList('checksumFiles').each {File file ->
+		ant.checksum(file: file, property: file.name)
+		println "$file.name Checksum: ${ant.properties[file.name]}"
 	}
 }
 
-task0.dependsOn task2,task3
+File[] fileList(String dir) {
+	file(dir).listFiles({ file -> file.isFile() } as FileFilter).sort()
+}
