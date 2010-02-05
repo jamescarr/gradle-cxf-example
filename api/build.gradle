@@ -1,0 +1,11 @@
+
+dependencies {
+	compile project(':shared')
+	compile "org.apache.cxf:cxf-bundle-minimal:2.2.6"
+	compile "commons-logging:commons-logging:1.1.1"
+}
+
+task run(dependsOn:'build') <<{
+	ant.java(classname: 'org.jamescarr.Main', fork: false,
+	classpath: "${sourceSets.main.runtimeClasspath.asPath}")
+}

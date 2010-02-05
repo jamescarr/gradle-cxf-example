@@ -1,0 +1,7 @@
+usePlugin 'war'
+usePlugin 'jetty'
+
+dependencies {
+	compile project(':shared')
+	compile 'org.apache.cxf:cxf-bundle-minimal:2.2.6'
+}

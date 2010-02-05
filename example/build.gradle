@@ -1,0 +1,6 @@
+usePlugin('java')
+
+task run(dependsOn:'build') <<{
+        ant.java(classname: 'org.jamescarr.Example', fork: true,
+        classpath: "${sourceSets.main.runtimeClasspath.asPath}")
+}
